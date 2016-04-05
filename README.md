@@ -123,7 +123,9 @@ id NEW_ID
  </td>
  </tr>
  </table>
- 
+
+##Additional Functionality
+There is also other elements like fuzzy matching, mapping and other tools. They are described in the <a href="https://github.com/BrickworkVentures/boilersuit-core/wiki">WIKI</a> of the engine.
 
  <a name="How to get it"></a>
 #How to get it
