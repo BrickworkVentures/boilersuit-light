@@ -190,4 +190,6 @@ THE NATIVE DEPENDENCIES OF SQLITE4JAVA MUST BE COPIED INTO THE SAME DIRECTORY AS
 cp src/lib/native/* target
 ```
 ##RUN IT
+```
 java -jar target/boilersuit-light.jar
+```
