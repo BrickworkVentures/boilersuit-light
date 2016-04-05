@@ -57,7 +57,7 @@ exactmatch := ourcompanies(name)->companylist(name);
  not in the other, and vice versa.
   
   ```
-exactmatch := ourcompanies(name)->companylist(name);
+what_id_exists_where := officialtable.some_id ./. previoustable.some_id;
   ```
   <h3>CREATE / DROP TABLES</h3>
   
