@@ -1,0 +1,7 @@
+
+Lists of 6 third-party dependencies.
+     (Apache 2.0) darcula (com.bulenkov.darcula:darcula:1.0.0 - no url defined)
+     (MIT) dragonconsole (com.eleet.dragonconsole:dragonconsole:3.0.0 - no url defined)
+     (Common Public License Version 1.0) JUnit (junit:junit:3.8.1 - http://junit.org)
+     (The Apache Software License, Version 2.0) Apache Log4j (log4j:log4j:1.2.17 - http://logging.apache.org/log4j/1.2/)
+     (Apache License, Version 2.0) Apache Commons Lang (org.apache.commons:commons-lang3:3.4 - http://commons.apache.org/proper/commons-lang/)

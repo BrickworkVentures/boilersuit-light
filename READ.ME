@@ -1,0 +1,36 @@
+BOILERSUIT 1.0 COMMUNITY EDITION
+(C) COPYRIGHT BY BRICKWORK VENTURES GMBH, WINTERTHUR, 2013-2016
+
+HOW TO BUILD / RUN
+------------------
+
+THE FOLLOWING DEPENDENCIES ARE NOT AVAILABLE IN PUBLICLY AVAILABLE MAVEN REPOSITORIES, SO INSTALL THEM LOCALLY, LIKE SO:
+mvn install:install-file -Dfile=src/lib/boilersuit-core.jar -DgroupId=ch.brickwork.bsuit -DartifactId=core -Dversion=1.0 -Dpackaging=jar
+mvn install:install-file -Dfile=src/lib/darcula.jar -DgroupId=com.bulenkov.darcula -DartifactId=darcula -Dversion=1.0.0 -Dpackaging=jar
+mvn install:install-file -Dfile=src/lib/dragonconsole.jar -DgroupId=com.eleet.dragonconsole -DartifactId=dragonconsole -Dversion=3.0.0 -Dpackaging=jar
+
+BUILD
+mvn clean compile assembly:single
+
+THE NATIVE DEPENDENCIES OF SQLITE4JAVA MUST BE COPIED INTO THE SAME DIRECTORY AS THE EXECUTABLE JAR, LIKE SO:
+cp src/lib/native/* target
+
+RUN IT
+java -jar target/boilersuit-light.jar
+
+
+TO USE THE INTERPRETER DOCUMENTATION HTML GENERATOR
+---------------------------------------------------
+
+Run ch.brickwork.bsuit.tools.manual.CreateManualFromInterpreters with the following arguments:
+src/main/java/ch/brickwork/bsuit/interpreter/interpreters/ src/main/doc/manual.html
+
+CREDITS
+-------
+
+The following open source libraries are used by Boilersuit:
+
+* Darcula, by Konstantin Bulenkov (www.bulenkov.com)
+* DragonConsole, by Brandon E Buck
+* java-string-similarity, by Ralph Allan Rice (www.ricecode.net)
+* sqlite4java by almworks.com
