@@ -172,7 +172,7 @@ Create/enter an empty directory, enter it, and launch
 ```
 git clone https://github.com/BrickworkVentures/boilersuit-light.git
 ```
-then go into the boilersuit-light directory.
+then <b>go into the boilersuit-light directory</b>!
 ###Step 3: Dependencies
 THE FOLLOWING DEPENDENCIES ARE NOT AVAILABLE IN PUBLICLY AVAILABLE MAVEN REPOSITORIES, SO INSTALL THEM LOCALLY, LIKE SO:
 ```
