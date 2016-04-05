@@ -165,8 +165,8 @@ Boilersuit comes in 3 pieces:
 
 #Build and Run it
 ##Build it
-###Step 1: Get Maven
-If you don't have it (test by launching ```mvn``` in your command line), get it <a href="https://maven.apache.org/guides/getting-started/">here</a>
+###Step 1: Get Maven and Java
+If you don't have it (test by launching ```mvn``` in your command line), get it <a href="https://maven.apache.org/guides/getting-started/">here</a>, or should you not have Java, get the <a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">Java SDK</a>.
 ###Step 2: Get a clone of boilersuit-light
 Create/enter an empty directory, enter it, and launch
 ```
