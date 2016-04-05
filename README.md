@@ -1,0 +1,165 @@
+#What is Boilersuit
+<b>Boilersuit Light</b> is a front-end application to <b>extract, prepare, transform and analysestructured data.</b> There is no need to set up a database connection to start working - Boilersuit automatically creates a local <a href="https://www.sqlite.org/">SQLite</a>  database file. This works astonishingly well with data up to a couple of gigabytes (in theory almost <a href="https://www.sqlite.org/faq.html#q8">unlimited</a>).
+
+
+##Boilerspeech and SQL short-hand notation
+
+  Transformation logic is defined in a special script language which is a superset of SQL. That means you can use native SQL if you like:
+  ```
+CREATE TABLE germanclients AS SELECT id, name, location FROM clients WHERE location='Germany' ORDER BY name ASC;
+  ```
+  The shorthand BS like notation would be
+  ```
+germanclients := clients(id, name{ASC}, location{='Germany'});
+  ```
+More handy <b>short notations</b> can be found <a href="#HandySQL">here.</a> Apart from the handy short notations for frequently used SQL queries
+
+##Pre-Processing Functions
+
+As an additional feature, BS provides <b>pre-processing functions</b> for attributes, e.g. to 'suck' out parts of an attribute based on regular expressions,
+or to conveniently format numbers and dates, and others like so:
+```
+germanclients2 := germanclients(id, SUCK(name, [A-Za-z]+, 1) AS firstname, SUCK(name, [A-Za-z]+, 1) AS lastname);
+```
+More on this <a href="#bsf">here.</a>
+
+
+#Boilerspeech
+##Short Notation
+  <a name="HandySQL"></a>
+  <h3>SELECT</h3>
+  
+ Transformation logic is defined in a special script language which is a superset of SQL. That means you can use native SQL if you like:
+ ```
+CREATE TABLE germanclients AS SELECT id, name, location FROM clients WHERE location='Germany' ORDER BY name ASC;
+ ```
+ The shorthand BS like notation would be
+ ```
+germanclients := clients(id, name{ASC}, location{='Germany'});
+ ```
+  
+  <h3>COUNT</h3>
+  
+ ```#table;
+#mytable(attr1 like 'some value');
+#cars(serialnumber = 12345);
+ ```
+  
+  <h3>LEFT OUTER JOIN</h3>
+  ```
+-- SELECT * FROM ourcompanies oc LEFT OUTER JOIN companylist cl ON oc.name = cl.name
+exactmatch := ourcompanies(name)->companylist(name);
+  ```
+  <h3>FREQUENCY TABLES</h3>
+  
+ Often we have a code, or an id, in two tables and we would like to count how often
+ they occur in any of both tables (if at all), and also see which keys exist only in the one but
+ not in the other, and vice versa.
+  
+  ```
+exactmatch := ourcompanies(name)->companylist(name);
+  ```
+  <h3>CREATE / DROP TABLES</h3>
+  
+ Creating/Dropping a table in Boilersuit is as simple as typing
+ ```
++mytable(*id, attribute1, attribute2); -- create
+-mytable; -- drop
+ ```
+  
+##Preprocessing Functions
+  <a name="bsf"></a>
+  A range of preprocessing functions are available:
+  <table>
+ <tr><th>Function</th><th>Purpose</th></tr>
+ <tr>
+ <td>bsfMagicDate</td>
+ <td>Tries to recognize a date expression from various formats into the BS default format MM.dd.yyyy.
+ Works even if the formats in the source data vary from row
+ to row. For unrecognized expressions, a warning will be shown.
+ ```
+ -- checking against common formats
+ transformed := source(, magicDate(MYDATE) AS STANDARDIZED_MY_DATE);
+  ```
+ If a preferred set of allowed formats should be used, they can be added as arguments:
+ ```
+ -- checking against y-m-d and y.m.d:
+ transformed := source(, magicDate(MYDATE, y-m-d, y.m.d[,...]) AS STANDARDIZED_MY_DATE);
+  ```
+ </td>
+ </tr>
+ <tr>
+ <td>bsfFormatNumber</td>
+ <td>Constructs a string using a pre-existing number in a certain way often useful to construct artificial IDs
+ for things. Lets assume we have a table with id's
+ ```
+id
+-----
+1
+239
+4000
+```
+Then, we may want to construct id's of uniform length like so:
+```
+result := table(id, formatNumber(id, A-DDDD) AS NEW_ID);
+
+-- Result will be as follows:
+id NEW_ID
+----  -----------
+1     A-0001
+239   A-0239
+4000  A-4000
+```
+ </td>
+ </tr>
+ <tr>
+ <td>bsfSuck</td>
+ <td>"Sucks" out specific patterns from the source data based on a regular expression</td>
+ </tr>
+ <tr>
+ <td>bsfHash</td>
+ <td><a href="https://en.wikipedia.org/wiki/Hash_function">Hashes</a> the source data using the String.hashCode method (probably depends on JVM used to run BS).
+ If the hash value is > 0, an 'X' is added to the hash as a prefix, otherwise and 'Y' - this explains the Xxxxxx resp. Yxxxxx format of the hash result.
+ </td>
+ </tr>
+ </table>
+ 
+
+ <a name="How to get it"></a>
+#How to get it
+Boilersuit comes in 3 pieces:
+ <table>
+<tr>
+  <th>Component</th>
+  <th>What is it</th>
+  <th>Get it</th>
+</tr>
+<tr>
+  <td>boilersuit-core</td>
+  <td>
+ This is the engine behind BS containing what you need to connect to databases, interpretation logic needed to run scripts etc. It is a pre-requisite of any Boilersuit application and it's a java library.
+  </td>
+  <td>
+ Open Source, at <a href="https://github.com/BrickworkVentures/boilersuit-core/">GitHub</a>
+  </td>
+</tr>
+<tr>
+  <td>boilersuit-light</td>
+  <td>
+ The free version of BoilerSuit consisting of a simple command-line like interface to manipulate and view data, to play around with it all and to run your BS scripts. It contains the boiler-suit core library and won't run without it
+  </td>
+  <td>
+ Open Source, at <a href="https://github.com/BrickworkVentures/boilersuit-light/">GitHub</a>
+  </td>
+</tr>
+<tr>
+  <td>boilersuit-professional</td>
+  <td>
+ The professional version of Boilersuit contains special features targeted at various business needs such as data migration, reconciliation, predicitve modelling.
+  </td>
+  <td>
+ <a href="mailto:info@brickwork.ch">Contact us</a>
+  </td>
+</tr>
+
+  
