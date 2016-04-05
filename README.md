@@ -161,6 +161,7 @@ Boilersuit comes in 3 pieces:
  <a href="mailto:info@brickwork.ch">Contact us</a>
   </td>
 </tr>
+</table>
 
 #Build and Run it
 ##Build it
