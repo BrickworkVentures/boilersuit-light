@@ -162,4 +162,31 @@ Boilersuit comes in 3 pieces:
   </td>
 </tr>
 
-  
+#Build and Run it
+##Build it
+###Step 1: Get Maven
+If you don't have it (test by launching ```mvn``` in your command line), get it <a href="https://maven.apache.org/guides/getting-started/">here</a>
+###Step 2: Get a clone of boilersuit-light
+Create/enter an empty directory, enter it, and launch
+```
+git clone https://github.com/BrickworkVentures/boilersuit-light.git
+```
+then go into the boilersuit-light directory.
+###Step 3: Dependencies
+THE FOLLOWING DEPENDENCIES ARE NOT AVAILABLE IN PUBLICLY AVAILABLE MAVEN REPOSITORIES, SO INSTALL THEM LOCALLY, LIKE SO:
+```
+mvn install:install-file -Dfile=src/lib/boilersuit-core.jar -DgroupId=ch.brickwork.bsuit -DartifactId=core -Dversion=1.0 -Dpackaging=jar
+mvn install:install-file -Dfile=src/lib/darcula.jar -DgroupId=com.bulenkov.darcula -DartifactId=darcula -Dversion=1.0.0 -Dpackaging=jar
+mvn install:install-file -Dfile=src/lib/dragonconsole.jar -DgroupId=com.eleet.dragonconsole -DartifactId=dragonconsole -Dversion=3.0.0 -Dpackaging=jar
+```
+###Step 4: Build
+```
+mvn clean compile assembly:single
+```
+###Step 5: Copy native dependencies
+THE NATIVE DEPENDENCIES OF SQLITE4JAVA MUST BE COPIED INTO THE SAME DIRECTORY AS THE EXECUTABLE JAR, LIKE SO:
+```
+cp src/lib/native/* target
+```
+##RUN IT
+java -jar target/boilersuit-light.jar
