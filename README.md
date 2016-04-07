@@ -8,9 +8,32 @@
   ```
 CREATE TABLE germanclients AS SELECT id, name, location FROM clients WHERE location='Germany' ORDER BY name ASC;
   ```
-  The shorthand BS like notation would be
+  The shorthand BS like notation would be as in the tutorial script below:
   ```
+-- load clients.csv from /home/marcel/sample folder
+cd /home/marcel/sample;                 -- change dir
+clients := clients.csv;                 -- import into table clients
+
+-- see what's in it (TIP: HIT ENTER TWICE to show it in tabular view)
+clients;
+
+-- to simply see tables in the BS light command line, you can also omit the semicolon:
+clients                                 -- (although in a runnable script that wouldn't work)
+
+-- manipulate
 germanclients := clients(id, name{ASC}, location{='Germany'});
+
+-- how many are they
+#germanclients;                         -- count rows in germanclients
+#germanclients(name like 'C%')          -- count rows with name starting with C
+
+-- match against list of existing clients, using name
+m_result := MATCH germanclients(name) ON allclients(name) USE THRESHOLD(0.8);
+
+-- export
+m_result =: m_result.xls;               -- export as excel
+m_result =: m_result.csv;               -- export as csv
+=:                                      -- export all tables to csv files
   ```
 More handy <b>short notations</b> can be found <a href="#HandySQL">here.</a> Apart from the handy short notations for frequently used SQL queries
 
