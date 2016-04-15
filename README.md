@@ -8,9 +8,32 @@
   ```
 CREATE TABLE germanclients AS SELECT id, name, location FROM clients WHERE location='Germany' ORDER BY name ASC;
   ```
-  The shorthand BS like notation would be
+  The shorthand BS like notation would be as in the tutorial script below:
   ```
+-- load clients.csv from /home/marcel/sample folder
+cd /home/marcel/sample;                 -- change dir
+clients := clients.csv;                 -- import into table clients
+
+-- see what's in it (TIP: HIT ENTER TWICE to show it in tabular view)
+clients;
+
+-- to simply see tables in the BS light command line, you can also omit the semicolon:
+clients                                 -- (although in a runnable script that wouldn't work)
+
+-- manipulate
 germanclients := clients(id, name{ASC}, location{='Germany'});
+
+-- how many are they
+#germanclients;                         -- count rows in germanclients
+#germanclients(name like 'C%')          -- count rows with name starting with C
+
+-- match against list of existing clients, using name
+m_result := MATCH germanclients(name) ON allclients(name) USE THRESHOLD(0.8);
+
+-- export
+m_result =: m_result.xls;               -- export as excel
+m_result =: m_result.csv;               -- export as csv
+=:                                      -- export all tables to csv files
   ```
 More handy <b>short notations</b> can be found <a href="#HandySQL">here.</a> Apart from the handy short notations for frequently used SQL queries
 
@@ -57,7 +80,7 @@ exactmatch := ourcompanies(name)->companylist(name);
  not in the other, and vice versa.
   
   ```
-exactmatch := ourcompanies(name)->companylist(name);
+what_id_exists_where := officialtable.some_id ./. previoustable.some_id;
   ```
   <h3>CREATE / DROP TABLES</h3>
   
@@ -123,7 +146,9 @@ id NEW_ID
  </td>
  </tr>
  </table>
- 
+
+##Additional Functionality
+There is also other elements like fuzzy matching, mapping and other tools. They are described <a href="http://htmlpreview.github.com/?https://github.com/BrickworkVentures/boilersuit-core/blob/master/src/main/doc/interpreters.html" target="_blank">here</a>
 
  <a name="How to get it"></a>
 #How to get it
@@ -161,5 +186,35 @@ Boilersuit comes in 3 pieces:
  <a href="mailto:info@brickwork.ch">Contact us</a>
   </td>
 </tr>
+</table>
 
-  
+#Build and Run it
+##Build it
+###Step 1: Get Maven and Java
+If you don't have it (test by launching ```mvn``` in your command line), get it <a href="https://maven.apache.org/guides/getting-started/">here</a>, or should you not have Java, get the <a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">Java SDK</a>.
+###Step 2: Get a clone of boilersuit-light
+Create/enter an empty directory, enter it, and launch
+```
+git clone https://github.com/BrickworkVentures/boilersuit-light.git
+```
+then <b>go into the boilersuit-light directory</b>!
+###Step 3: Dependencies
+THE FOLLOWING DEPENDENCIES ARE NOT AVAILABLE IN PUBLICLY AVAILABLE MAVEN REPOSITORIES, SO INSTALL THEM LOCALLY, LIKE SO:
+```
+mvn install:install-file -Dfile=src/lib/boilersuit-core.jar -DgroupId=ch.brickwork.bsuit -DartifactId=core -Dversion=1.0 -Dpackaging=jar
+mvn install:install-file -Dfile=src/lib/darcula.jar -DgroupId=com.bulenkov.darcula -DartifactId=darcula -Dversion=1.0.0 -Dpackaging=jar
+mvn install:install-file -Dfile=src/lib/dragonconsole.jar -DgroupId=com.eleet.dragonconsole -DartifactId=dragonconsole -Dversion=3.0.0 -Dpackaging=jar
+```
+###Step 4: Build
+```
+mvn clean compile assembly:single
+```
+###Step 5: Copy native dependencies
+THE NATIVE DEPENDENCIES OF SQLITE4JAVA MUST BE COPIED INTO THE SAME DIRECTORY AS THE EXECUTABLE JAR, LIKE SO:
+```
+cp src/lib/native/* target
+```
+##RUN IT
+```
+java -jar target/boilersuit-light.jar
+```
