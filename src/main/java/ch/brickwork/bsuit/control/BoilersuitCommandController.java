@@ -2,7 +2,10 @@ package ch.brickwork.bsuit.control;
 
 import ch.brickwork.bsuit.Console;
 import ch.brickwork.bsuit.globals.IBoilersuitApplicationContext;
+import ch.brickwork.bsuit.util.ConfigFile;
 import com.eleet.dragonconsole.CommandProcessor;
+
+import java.io.File;
 
 /**
  * Created by marcel on 2/19/16.
@@ -33,8 +36,7 @@ public class BoilersuitCommandController extends CommandProcessor {
             context.getDatabase().deleteTemporaryTables();
             context.getLog().log("Done deleting temporary tables");
             System.exit(0);
-        }
-        else if (input.trim().equals("")) {
+        } else if (input.trim().equals("")) {
             if (processingResultDisplay.getLastTableOrViewProcessingResult() != null) {
                 processingResultDisplay.displayTableOrViewInTable(processingResultDisplay.getLastTableOrViewProcessingResult().getResultSummary(), processingResultDisplay.getLastTableOrViewProcessingResult().getResultSummary(), null, null);
             }
@@ -44,6 +46,12 @@ public class BoilersuitCommandController extends CommandProcessor {
             if (isComplex(input))
                 processingResultDisplay.setProgressMessage("Executing - please stand by and pray...");
             executer.executeScriptOrExpression(input, "");
+
+            if(input.trim().toLowerCase().startsWith("cd ")) {
+                String path = input.trim().substring(3).replaceAll(";", "");
+                if(new File(path).isDirectory())
+                    ConfigFile.getInstance(context).refreshConfigFile(path);
+            }
         }
     }
 

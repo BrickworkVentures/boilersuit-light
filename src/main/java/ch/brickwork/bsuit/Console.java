@@ -7,6 +7,7 @@ import ch.brickwork.bsuit.globals.IBoilersuitApplicationContext;
 import ch.brickwork.bsuit.interpreter.DefaultCommandInterpreterFactory;
 import ch.brickwork.bsuit.interpreter.interpreters.ProcessingResult;
 
+import ch.brickwork.bsuit.util.ConfigFile;
 import ch.brickwork.bsuit.util.FontUtils;
 import ch.brickwork.bsuit.util.ILog;
 import ch.brickwork.bsuit.util.ImageUtils;
@@ -54,6 +55,8 @@ public class Console implements ILog, IProcessingResultDisplay {
     private IBoilersuitApplicationContext context;
 
     private ProcessingResult lastTableOrViewProcessingResult;
+
+    private ConfigFile config;
 
     public Console() {
         init();

@@ -6,6 +6,7 @@ import ch.brickwork.bsuit.database.Record;
 import ch.brickwork.bsuit.globals.BoilerSuitGlobals;
 import ch.brickwork.bsuit.globals.IBoilersuitApplicationContext;
 import ch.brickwork.bsuit.interpreter.interpreters.ProcessingResult;
+import ch.brickwork.bsuit.util.ConfigFile;
 import ch.brickwork.bsuit.util.FontUtils;
 import com.eleet.dragonconsole.DragonConsole;
 import com.eleet.dragonconsole.util.TextColor;
@@ -17,6 +18,7 @@ import java.awt.event.KeyEvent;
  * Created by marcel on 31/07/15.
  */
 public class BoilerSuitDragonConsole extends DragonConsole implements IZoomable, IProcessingResultDisplay {
+
     public final static Color DEFAULT_CONSOLE_BACKGROUND = new Color(68, 68 ,68);
     public static final String DEFAULT_BS_COLOR = "&da";
     public static final String DEFAULT_SUMMARY_COLOR = "&xa";
@@ -24,7 +26,6 @@ public class BoilerSuitDragonConsole extends DragonConsole implements IZoomable,
     public static final String DEFAULT_ERROR_COLOR = "&ra";
     public static final String DEFAULT_ATTRIBUTE_COLOR = "&xa";
     public static final String DEFAULT_VALUE_COLOR = DEFAULT_RESULT_COLOR;
-    private static final int SHOW_RECORDS_COUNT = 100;
 
     private final static String HUGE_SPACER = "                                                                                                                                                                                                                                                                                                                                             ";
     private final static String HUGE_LINE_SPACER = "-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------";
@@ -153,7 +154,7 @@ public class BoilerSuitDragonConsole extends DragonConsole implements IZoomable,
     }
 
     public void displayTableOrView(final String tableName, final String variableName, final String sortField, final Boolean sortAsc, String additionalComment, VIEW_MODE viewMode) {
-        displayRecords(context.getDatabase().getAllRecordsFromTableOrView(tableName, 0, SHOW_RECORDS_COUNT - 1, null, null), tableName, additionalComment, viewMode);
+        displayRecords(context.getDatabase().getAllRecordsFromTableOrView(tableName, 0, ConfigFile.getInstance(context).getInteger(ConfigFile.KEYS_NUMBER_OF_RESULT_ROWS) - 1, null, null), tableName, additionalComment, viewMode);
     }
 
 
