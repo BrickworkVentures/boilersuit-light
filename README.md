@@ -150,6 +150,14 @@ id NEW_ID
 ##Additional Functionality
 There is also other elements like fuzzy matching, mapping and other tools. They are described <a href="http://htmlpreview.github.com/?https://github.com/BrickworkVentures/boilersuit-core/blob/master/src/main/doc/interpreters.html" target="_blank">here</a>
 
+#Configuration File
+The behaviour of the console can be configured via a configuration file. It's optional; if it's not there, the default values apply.
+<b>boilersuit.conf</b> (showing default behaviour):
+```
+-- show less than 100 entries when displaying result in console:
+console.numberOfResultRows = 100
+```
+
  <a name="How to get it"></a>
 #How to get it
 Boilersuit comes in 3 pieces:
