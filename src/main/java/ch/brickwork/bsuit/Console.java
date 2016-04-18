@@ -62,6 +62,7 @@ public class Console implements ILog, IProcessingResultDisplay {
     private void init() {
         context = new DefaultBoilersuitApplicationContext();
         context.getDatabase().setLog(this);
+        context.setLog(this);
 
         try {
             SwingUtilities.invokeAndWait(
@@ -151,7 +152,7 @@ public class Console implements ILog, IProcessingResultDisplay {
 
     @Override
     public void log(String s) {
-        context.getLog().log(s);
+        System.out.println(s);
     }
 
     @Override
