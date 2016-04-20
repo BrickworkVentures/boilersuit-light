@@ -154,7 +154,7 @@ public class BoilerSuitDragonConsole extends DragonConsole implements IZoomable,
     }
 
     public void displayTableOrView(final String tableName, final String variableName, final String sortField, final Boolean sortAsc, String additionalComment, VIEW_MODE viewMode) {
-        displayRecords(context.getDatabase().getAllRecordsFromTableOrView(tableName, 0, ConfigFile.getInstance(context).getInteger(ConfigFile.KEYS_NUMBER_OF_RESULT_ROWS) - 1, null, null), tableName, additionalComment, viewMode);
+        displayRecords(context.getDatabase().getAllRecordsFromTableOrView(tableName, 0, ConfigFile.getInstance(context).getInteger(ConfigFile.KEYS_NUMBER_OF_RESULT_ROWS), null, null), tableName, additionalComment, viewMode);
     }
 
 
