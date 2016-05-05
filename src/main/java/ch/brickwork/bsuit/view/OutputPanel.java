@@ -58,11 +58,13 @@ public class OutputPanel extends JTabbedPane implements IProcessingResultDisplay
     @Override
     public void displayProcessingResult(ProcessingResult processingResult) {
         tablePanel.displayProcessingResult(processingResult);
+        setSelectedComponent(tablePanel);
     }
 
     @Override
     public void displayTableOrView(String tableOrViewName, String variableName, String sortField, Boolean sortAsc) {
         tablePanel.displayTableOrView(tableOrViewName, variableName, sortField, sortAsc);
+        setSelectedComponent(tablePanel);
     }
 
     @Override
