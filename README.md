@@ -1,4 +1,7 @@
 #What is Boilersuit
+
+<img src="http://www.boiler-suit.com/img/bsss.png"/ >
+
 <b>Boilersuit Light</b> is a front-end application to <b>extract, prepare, transform and analyse structured data.</b> There is no need to set up a database connection to start working -- Boilersuit automatically creates a local <a href="https://www.sqlite.org/">SQLite</a>  database file. This works astonishingly well with data up to a couple of gigabytes (in theory almost <a href="https://www.sqlite.org/faq.html#q8">unlimited</a>).
 
 
